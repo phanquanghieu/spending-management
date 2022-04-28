@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.spendingmanagement.MainActivity;
 import com.example.spendingmanagement.R;
 
 public class AccountFragment extends Fragment {
@@ -16,6 +17,7 @@ public class AccountFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_account, container, false);
+        ((MainActivity)getActivity()).currentAccount = "ssss";
         return view;
     }
 }
