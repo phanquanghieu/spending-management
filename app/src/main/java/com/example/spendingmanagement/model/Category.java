@@ -5,29 +5,27 @@ public class Category {
     private String name;
     private String type;
     private int color;
+    private int colorCode;
     private int icon;
 
     public Category() {
 
     }
 
-    public Category(String name, String type) {
-        this.name = name;
-        this.type = type;
-    }
-
-    public Category(String name, String type, int color, int icon) {
-        this.name = name;
-        this.type = type;
-        this.color = color;
-        this.icon = icon;
-    }
-
-    public Category(int id, String name, String type, int color, int icon) {
+    public Category(int id, String name, String type, int color, int colorCode, int icon) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.color = color;
+        this.colorCode = colorCode;
+        this.icon = icon;
+    }
+
+    public Category(String name, String type, int color, int colorCode, int icon) {
+        this.name = name;
+        this.type = type;
+        this.color = color;
+        this.colorCode = colorCode;
         this.icon = icon;
     }
 
@@ -61,6 +59,14 @@ public class Category {
 
     public void setColor(int color) {
         this.color = color;
+    }
+
+    public int getColorCode() {
+        return colorCode;
+    }
+
+    public void setColorCode(int colorCode) {
+        this.colorCode = colorCode;
     }
 
     public int getIcon() {

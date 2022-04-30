@@ -8,14 +8,14 @@ public class Transaction {
     private Category toCategory;
     private String fromType;
     private String toType;
-    private Date date;
+    private String date;
     private int amount;
 
-    public Transaction(){
+    public Transaction() {
 
     }
 
-    public Transaction(Category fromCategory, Category toCategory, String fromType, String toType, Date date, int amount) {
+    public Transaction(Category fromCategory, Category toCategory, String fromType, String toType, String date, int amount) {
         this.fromCategory = fromCategory;
         this.toCategory = toCategory;
         this.fromType = fromType;
@@ -24,7 +24,7 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public Transaction(int id, Category fromCategory, Category toCategory, String fromType, String toType, Date date, int amount) {
+    public Transaction(int id, Category fromCategory, Category toCategory, String fromType, String toType, String date, int amount) {
         this.id = id;
         this.fromCategory = fromCategory;
         this.toCategory = toCategory;
@@ -74,11 +74,11 @@ public class Transaction {
         this.toType = toType;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

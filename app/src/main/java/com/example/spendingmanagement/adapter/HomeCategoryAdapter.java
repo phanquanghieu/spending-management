@@ -15,6 +15,7 @@ import com.example.spendingmanagement.MainActivity;
 import com.example.spendingmanagement.R;
 import com.example.spendingmanagement.model.Category;
 import com.example.spendingmanagement.ui.category.AddTransactionFragment;
+import com.example.spendingmanagement.ui.category.CategoryFragment;
 
 import java.util.ArrayList;
 
@@ -22,10 +23,12 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
 
     private Context context;
     private ArrayList<Category> homeCategory;
+    private CategoryFragment categoryFragment;
 
-    public HomeCategoryAdapter(Context context, ArrayList<Category> homeCategory){
+    public HomeCategoryAdapter(Context context, ArrayList<Category> homeCategory, CategoryFragment categoryFragment){
         this.context = context;
         this.homeCategory = homeCategory;
+        this.categoryFragment = categoryFragment;
     }
 
     @NonNull
@@ -43,6 +46,16 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
         holder.categoryBgIc.setBackgroundResource(homeCategory.get(position).getColor());
         holder.txtCategoryName.setText(homeCategory.get(position).getName());
         holder.txtCategoryAmount.setText(homeCategory.get(position).getName());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Category categorySelected = homeCategory.get(holder.getAdapterPosition());
+                AddTransactionFragment addTransactionFragment = new AddTransactionFragment(categoryFragment, categorySelected);
+                addTransactionFragment.show(((FragmentActivity)context).getSupportFragmentManager(),
+                        addTransactionFragment.getTag());
+            }
+        });
     }
 
     @Override
@@ -62,16 +75,16 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
             txtCategoryName = itemView.findViewById(R.id.txtCategoryName);
             txtCategoryAmount = itemView.findViewById(R.id.txtCategoryAmount);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    AddTransactionFragment addTransactionFragment = new AddTransactionFragment();
-                    addTransactionFragment.show(((FragmentActivity)context).getSupportFragmentManager(),
-                            addTransactionFragment.getTag());
-//                    String curr = ((MainActivity)context).currentAccount;
-//                    System.out.println(curr);
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    AddTransactionFragment addTransactionFragment = new AddTransactionFragment(categoryFragment);
+//                    addTransactionFragment.show(((FragmentActivity)context).getSupportFragmentManager(),
+//                            addTransactionFragment.getTag());
+////                    String curr = ((MainActivity)context).currentAccount;
+////                    System.out.println(curr);
+//                }
+//            });
         }
     }
 }

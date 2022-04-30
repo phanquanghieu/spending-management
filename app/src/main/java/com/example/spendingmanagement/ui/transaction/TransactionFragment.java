@@ -16,6 +16,7 @@ public class TransactionFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_transaction, container, false);
+
         return view;
     }
 }

@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import com.example.spendingmanagement.model.Category;
 import com.example.spendingmanagement.model.Transaction;
 
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,14 +19,15 @@ public class SQLHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "spending_management";
     private static final int DATABASE_VERSION = 1;
 
-    private static final String TABLE_CATEGORY = "category";
+    private static final String TABLE_CATEGORY = "`category`";
     private static final String CATEGORY_ID = "id";
     private static final String CATEGORY_NAME = "name";
     private static final String CATEGORY_TYPE = "type";
     private static final String CATEGORY_COLOR = "color";
+    private static final String CATEGORY_COLOR_CODE = "color_code";
     private static final String CATEGORY_ICON = "icon";
 
-    private static final String TABLE_TRANSACTION = "transaction";
+    private static final String TABLE_TRANSACTION = "`transaction`";
     private static final String TRANSACTION_ID = "id";
     private static final String TRANSACTION_FROM_ID = "from_category_id";
     private static final String TRANSACTION_TO_ID = "to_category_id";
@@ -49,6 +50,7 @@ public class SQLHelper extends SQLiteOpenHelper {
                         CATEGORY_NAME + " TEXT, " +
                         CATEGORY_TYPE + " TEXT, " +
                         CATEGORY_COLOR + " INTEGER, " +
+                        CATEGORY_COLOR_CODE + " INTEGER, " +
                         CATEGORY_ICON + " INTEGER )")
         );
         sqLiteDatabase.execSQL(String.valueOf(
@@ -79,6 +81,7 @@ public class SQLHelper extends SQLiteOpenHelper {
         contentValues.put(CATEGORY_NAME, category.getName());
         contentValues.put(CATEGORY_TYPE, category.getType());
         contentValues.put(CATEGORY_COLOR, category.getColor());
+        contentValues.put(CATEGORY_COLOR_CODE, category.getColorCode());
         contentValues.put(CATEGORY_ICON, category.getIcon());
         long result = db.insert(TABLE_CATEGORY, null, contentValues);
 
@@ -93,21 +96,70 @@ public class SQLHelper extends SQLiteOpenHelper {
         if (cursor.getCount() == 0) return listCategory;
 
         while (cursor.moveToNext()) {
-            listCategory.add(new Category(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3), cursor.getInt(4)));
+            listCategory.add(new Category(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3), cursor.getInt(4), cursor.getInt(5)));
         }
         return listCategory;
     }
 
-    public boolean addTransaction(Transaction transaction) {
+    public Category getCategoryById(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CATEGORY + " WHERE " + CATEGORY_ID + " = ?", new String[]{String.valueOf(id)});
+
+        if (cursor.getCount() == 0) return null;
+
+        Category category;
+        cursor.moveToNext();
+        category = new Category(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3), cursor.getInt(4), cursor.getInt(5));
+
+        return category;
+    }
+
+    public Category getCategoryByName(String name) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CATEGORY + " WHERE " + CATEGORY_NAME + " = ?", new String[]{name});
+
+        if (cursor.getCount() == 0) return null;
+
+        Category category;
+        cursor.moveToNext();
+        category = new Category(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3), cursor.getInt(4), cursor.getInt(5));
+
+        return category;
+    }
+
+    public void addTransaction(Transaction transaction) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-//        contentValues.put(TRANSACTION_FROM_ID,transaction.getFromCategory().getId());
-//        contentValues.put(TRANSACTION_TO_ID, transaction.getToCategory().getId());
+        contentValues.put(TRANSACTION_FROM_ID,transaction.getFromCategory().getId());
+        contentValues.put(TRANSACTION_TO_ID, transaction.getToCategory().getId());
+        contentValues.put(TRANSACTION_FROM_TYPE, transaction.getFromType());
+        contentValues.put(TRANSACTION_TO_TYPE, transaction.getToType());
+        contentValues.put(TRANSACTION_DATE, transaction.getDate());
+        contentValues.put(TRANSACTION_AMOUNT, transaction.getAmount());
 
-        LocalDate localDate = LocalDate.now();
-        contentValues.put(TRANSACTION_DATE, localDate.toString());
-        long result = db.insert(TABLE_TRANSACTION, null, contentValues);
+        db.insert(TABLE_TRANSACTION, null, contentValues);
 
-        return result != -1;
+    }
+
+    public ArrayList<Transaction> getTransaction(){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TRANSACTION, null);
+
+        ArrayList<Transaction> listTransaction = new ArrayList<>();
+        if(cursor.getCount() == 0) return listTransaction;
+
+        while (cursor.moveToNext()){
+            Transaction transaction = new Transaction();
+            transaction.setId(cursor.getInt(0));
+            transaction.setFromCategory(getCategoryById(cursor.getInt(1)));
+            transaction.setToCategory(getCategoryById(cursor.getInt(2)));
+            transaction.setFromType(cursor.getString(3));
+            transaction.setToType(cursor.getString(4));
+            transaction.setDate(cursor.getString(5));
+            transaction.setAmount(cursor.getInt(6));
+
+            listTransaction.add(transaction);
+        }
+        return listTransaction;
     }
 }

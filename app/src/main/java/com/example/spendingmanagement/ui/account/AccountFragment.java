@@ -17,7 +17,6 @@ public class AccountFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_account, container, false);
-        ((MainActivity)getActivity()).currentAccount = "ssss";
         return view;
     }
 }

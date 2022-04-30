@@ -26,6 +26,7 @@ public class CategoryFragment extends Fragment {
     private Button btnEditCategory;
     private LinearLayout btnExpenses, btnIncome;
     private RecyclerView rcvHomeCategory;
+    public String currentCategoryType;
 
     private SQLHelper sqlHelper;
 
@@ -50,7 +51,24 @@ public class CategoryFragment extends Fragment {
 
         rcvHomeCategory.setLayoutManager(new GridLayoutManager(getActivity(), 4));
 
+        currentCategoryType="EXPENSES";
         renderCategory();
+
+        btnExpenses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentCategoryType="EXPENSES";
+                renderCategory();
+            }
+        });
+
+        btnIncome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentCategoryType="INCOME";
+                renderCategory();
+            }
+        });
 
         return view;
     }
@@ -67,10 +85,11 @@ public class CategoryFragment extends Fragment {
     public void onResume() {
         super.onResume();
         System.out.println("category fragment resume");
+        renderCategory();
     }
 
-    private void renderCategory(){
+    public void renderCategory(){
         System.out.println("renderCategory");
-        rcvHomeCategory.setAdapter(new HomeCategoryAdapter(getActivity(), sqlHelper.getCategoryByType("EXPENSES")));
+        rcvHomeCategory.setAdapter(new HomeCategoryAdapter(getActivity(), sqlHelper.getCategoryByType(currentCategoryType), this));
     }
 }
