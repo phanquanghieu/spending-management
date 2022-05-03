@@ -8,6 +8,7 @@
     >
 
     <TextView
+        android:id="@+id/txtHeaderAccount"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="6dp"
@@ -17,12 +18,14 @@
         android:textSize="14sp" />
 
     <TextView
+        android:id="@+id/txtHeaderAmount"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="4dp"
-        android:text="$ 4,555,555"
+        android:text="₫ 4,555,555"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textStyle="bold"
+        android:textSize="24sp" />
 
 </LinearLayout>

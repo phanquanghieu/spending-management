@@ -45,7 +45,8 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
         holder.categoryBgIc.setImageResource(homeCategory.get(position).getIcon());
         holder.categoryBgIc.setBackgroundResource(homeCategory.get(position).getColor());
         holder.txtCategoryName.setText(homeCategory.get(position).getName());
-        holder.txtCategoryAmount.setText(homeCategory.get(position).getName());
+        holder.txtCategoryAmount.setText("₫ " + homeCategory.get(position).getAmount());
+        holder.txtCategoryAmount.setTextColor(context.getResources().getColor(homeCategory.get(position).getColorCode()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,16 +76,6 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
             txtCategoryName = itemView.findViewById(R.id.txtCategoryName);
             txtCategoryAmount = itemView.findViewById(R.id.txtCategoryAmount);
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    AddTransactionFragment addTransactionFragment = new AddTransactionFragment(categoryFragment);
-//                    addTransactionFragment.show(((FragmentActivity)context).getSupportFragmentManager(),
-//                            addTransactionFragment.getTag());
-////                    String curr = ((MainActivity)context).currentAccount;
-////                    System.out.println(curr);
-//                }
-//            });
         }
     }
 }

@@ -1,6 +1,9 @@
 package com.example.spendingmanagement;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.spendingmanagement.model.Category;
 import com.example.spendingmanagement.model.Util;
@@ -18,8 +21,10 @@ import com.example.spendingmanagement.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private SQLHelper sqlHelper;
 
     public Category currentAccount;
+    public Boolean isAllAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +40,36 @@ public class MainActivity extends AppCompatActivity {
         if (actionBar != null) actionBar.hide();
 
 
-        SQLHelper sqlHelper = new SQLHelper(MainActivity.this);
+        sqlHelper = new SQLHelper(MainActivity.this);
 
         Category cardAccount = sqlHelper.getCategoryByName("Card");
-        if(cardAccount == null) {
+        if (cardAccount == null) {
             cardAccount = new Category("Card", "ACCOUNT", Util.colorId[0], Util.colorCodeId[0], Util.iconId[0]);
             sqlHelper.addCategory(cardAccount);
         }
         currentAccount = cardAccount;
+        isAllAccount = true;
+        bindHeader(getWindow().getDecorView());
 
+    }
+
+    public void bindHeader(View view) {
+        TextView txtHeaderAccount = view.findViewById(R.id.txtHeaderAccount);
+        TextView txtHeaderAmount = view.findViewById(R.id.txtHeaderAmount);
+
+        if(isAllAccount == null) return;
+
+        String accountName="", amount = "";
+        if (isAllAccount) {
+            accountName = "All Account";
+            amount = sqlHelper.getAccountAmount(true, 0) + "";
+        } else {
+            accountName = currentAccount.getName();
+            amount = sqlHelper.getAccountAmount(false, currentAccount.getId()) + "";
+        }
+
+        txtHeaderAccount.setText(accountName);
+        txtHeaderAmount.setText("₫ " + amount);
     }
 
 }

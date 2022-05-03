@@ -7,6 +7,7 @@ public class Category {
     private int color;
     private int colorCode;
     private int icon;
+    private int amount;
 
     public Category() {
 
@@ -27,6 +28,16 @@ public class Category {
         this.color = color;
         this.colorCode = colorCode;
         this.icon = icon;
+    }
+
+    public Category(int id, String name, String type, int color, int colorCode, int icon, int amount) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.color = color;
+        this.colorCode = colorCode;
+        this.icon = icon;
+        this.amount = amount;
     }
 
     public int getId() {
@@ -75,5 +86,13 @@ public class Category {
 
     public void setIcon(int icon) {
         this.icon = icon;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

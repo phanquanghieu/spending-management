@@ -101,6 +101,48 @@ public class SQLHelper extends SQLiteOpenHelper {
         return listCategory;
     }
 
+    public ArrayList<Category> getCategoryWithAmountByType(String type) {
+        ArrayList<Category> listCategory = getCategoryByType(type);
+        for (Category category : listCategory) {
+            category.setAmount(getCategoryAmount(category.getId(), type));
+        }
+        return listCategory;
+    }
+
+    public int getAccountAmount(Boolean isAllAccount, int accountId) {
+        System.out.println(isAllAccount);
+        System.out.println(accountId);
+        if (isAllAccount) {
+            return getCategoryAmountOfType("INCOME") -
+                    getCategoryAmountOfType("EXPENSES");
+        } else {
+            SQLiteDatabase db = getReadableDatabase();
+            String sql = "SELECT SUM(" + TRANSACTION_AMOUNT + ") amount FROM " + TABLE_TRANSACTION;
+            String sqlExpense, sqlIncome;
+            int expensesAmount, incomeAmount;
+            sqlExpense = sql + " WHERE " + TRANSACTION_TO_TYPE + " = `EXPENSES` AND "
+                    + TRANSACTION_FROM_ID + " = " + accountId;
+
+            sqlIncome = sql + " WHERE " + TRANSACTION_FROM_TYPE + " = `INCOME` AND"
+                    + TRANSACTION_TO_ID + " = " + accountId;
+
+            Cursor cursor1 = db.rawQuery(sqlExpense, null);
+            if (cursor1.getCount() == 0) expensesAmount = 0;
+            else {
+                cursor1.moveToNext();
+                expensesAmount = cursor1.getInt(0);
+            }
+            Cursor cursor2 = db.rawQuery(sqlIncome, null);
+            if (cursor2.getCount() == 0) incomeAmount = 0;
+            else {
+                cursor2.moveToNext();
+                incomeAmount = cursor2.getInt(0);
+            }
+
+            return incomeAmount - expensesAmount;
+        }
+    }
+
     public Category getCategoryById(int id) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CATEGORY + " WHERE " + CATEGORY_ID + " = ?", new String[]{String.valueOf(id)});
@@ -130,7 +172,7 @@ public class SQLHelper extends SQLiteOpenHelper {
     public void addTransaction(Transaction transaction) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(TRANSACTION_FROM_ID,transaction.getFromCategory().getId());
+        contentValues.put(TRANSACTION_FROM_ID, transaction.getFromCategory().getId());
         contentValues.put(TRANSACTION_TO_ID, transaction.getToCategory().getId());
         contentValues.put(TRANSACTION_FROM_TYPE, transaction.getFromType());
         contentValues.put(TRANSACTION_TO_TYPE, transaction.getToType());
@@ -141,14 +183,14 @@ public class SQLHelper extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<Transaction> getTransaction(){
+    public ArrayList<Transaction> getTransaction() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TRANSACTION, null);
 
         ArrayList<Transaction> listTransaction = new ArrayList<>();
-        if(cursor.getCount() == 0) return listTransaction;
+        if (cursor.getCount() == 0) return listTransaction;
 
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             Transaction transaction = new Transaction();
             transaction.setId(cursor.getInt(0));
             transaction.setFromCategory(getCategoryById(cursor.getInt(1)));
@@ -161,5 +203,43 @@ public class SQLHelper extends SQLiteOpenHelper {
             listTransaction.add(transaction);
         }
         return listTransaction;
+    }
+
+    public int getCategoryAmountOfType(String categoryType) {
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = "SELECT SUM(" + TRANSACTION_AMOUNT + ") amount FROM " + TABLE_TRANSACTION;
+
+        if (categoryType.equals("EXPENSES")) {
+            sql += " WHERE " + TRANSACTION_TO_TYPE + " = ?";
+        }
+
+        if (categoryType.equals("INCOME")) {
+            sql += " WHERE " + TRANSACTION_FROM_TYPE + " = ?";
+        }
+
+        Cursor cursor = db.rawQuery(sql, new String[]{categoryType});
+
+        if (cursor.getCount() == 0) return 0;
+        cursor.moveToNext();
+        return cursor.getInt(0);
+    }
+
+    protected int getCategoryAmount(int categoryId, String categoryType) {
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = "SELECT SUM(" + TRANSACTION_AMOUNT + ") amount FROM " + TABLE_TRANSACTION;
+
+        if (categoryType.equals("EXPENSES")) {
+            sql += " WHERE " + TRANSACTION_TO_ID + " = " + categoryId;
+        }
+
+        if (categoryType.equals("INCOME")) {
+            sql += " WHERE " + TRANSACTION_FROM_ID + " = " + categoryId;
+        }
+
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.getCount() == 0) return 0;
+        cursor.moveToNext();
+        return cursor.getInt(0);
     }
 }

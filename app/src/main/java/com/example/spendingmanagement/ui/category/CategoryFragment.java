@@ -7,15 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.spendingmanagement.HeaderAccountFragment;
+import com.example.spendingmanagement.MainActivity;
 import com.example.spendingmanagement.R;
 import com.example.spendingmanagement.adapter.HomeCategoryAdapter;
 import com.example.spendingmanagement.sql.SQLHelper;
@@ -23,8 +22,10 @@ import com.example.spendingmanagement.sql.SQLHelper;
 public class CategoryFragment extends Fragment {
 
     private View view;
+    private MainActivity mainActivity;
     private Button btnEditCategory;
     private LinearLayout btnExpenses, btnIncome;
+    private TextView txtExpensesAmount, txtIncomeAmount;
     private RecyclerView rcvHomeCategory;
     public String currentCategoryType;
 
@@ -36,10 +37,14 @@ public class CategoryFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_category, container, false);
 
         sqlHelper = new SQLHelper(getActivity());
+        mainActivity = (MainActivity) getActivity();
+        mainActivity.bindHeader(view);
 
         btnEditCategory = view.findViewById(R.id.btnEditCategory);
         btnExpenses = view.findViewById(R.id.btnExpenses);
         btnIncome = view.findViewById(R.id.btnIncome);
+        txtExpensesAmount = view.findViewById(R.id.txtExpensesAmount);
+        txtIncomeAmount = view.findViewById(R.id.txtIncomeAmount);
         rcvHomeCategory = view.findViewById(R.id.rcvHomeCategory);
 
         btnEditCategory.setOnClickListener(new View.OnClickListener() {
@@ -51,13 +56,13 @@ public class CategoryFragment extends Fragment {
 
         rcvHomeCategory.setLayoutManager(new GridLayoutManager(getActivity(), 4));
 
-        currentCategoryType="EXPENSES";
+        currentCategoryType = "EXPENSES";
         renderCategory();
 
         btnExpenses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentCategoryType="EXPENSES";
+                currentCategoryType = "EXPENSES";
                 renderCategory();
             }
         });
@@ -65,7 +70,7 @@ public class CategoryFragment extends Fragment {
         btnIncome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentCategoryType="INCOME";
+                currentCategoryType = "INCOME";
                 renderCategory();
             }
         });
@@ -73,23 +78,18 @@ public class CategoryFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-        Fragment headerAccountFragment = new HeaderAccountFragment();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_header_account_container, headerAccountFragment).commit();
-    }
 
     @Override
     public void onResume() {
         super.onResume();
-        System.out.println("category fragment resume");
         renderCategory();
     }
 
-    public void renderCategory(){
+    public void renderCategory() {
         System.out.println("renderCategory");
-        rcvHomeCategory.setAdapter(new HomeCategoryAdapter(getActivity(), sqlHelper.getCategoryByType(currentCategoryType), this));
+        rcvHomeCategory.setAdapter(new HomeCategoryAdapter(getActivity(), sqlHelper.getCategoryWithAmountByType(currentCategoryType), this));
+        txtExpensesAmount.setText("₫ " + sqlHelper.getCategoryAmountOfType("EXPENSES"));
+        txtIncomeAmount.setText("₫ " + sqlHelper.getCategoryAmountOfType("INCOME"));
+        mainActivity.bindHeader(view);
     }
 }
