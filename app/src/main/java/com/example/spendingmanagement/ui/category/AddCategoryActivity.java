@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.spendingmanagement.R;
@@ -35,6 +36,11 @@ public class AddCategoryActivity extends AppCompatActivity {
 
         SQLHelper sqlHelper = new SQLHelper(AddCategoryActivity.this);
         String categoryType = getIntent().getStringExtra("categoryType");
+        String title = getIntent().getStringExtra("title");
+        if(title != null){
+            TextView txtTitle = findViewById(R.id.txtTitle);
+            txtTitle.setText(title);
+        }
 
         btnCreateCategory = findViewById(R.id.btnCreateCategory);
         inpCategoryName = findViewById(R.id.inpCategoryName);

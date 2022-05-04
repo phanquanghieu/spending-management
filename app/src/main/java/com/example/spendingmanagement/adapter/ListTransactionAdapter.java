@@ -8,21 +8,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spendingmanagement.R;
+import com.example.spendingmanagement.helper.ItemTouchHelperAdapter;
 import com.example.spendingmanagement.model.Transaction;
+import com.example.spendingmanagement.ui.transaction.TransactionFragment;
 
 import java.util.ArrayList;
 
-public class ListTransactionAdapter extends RecyclerView.Adapter<ListTransactionAdapter.ViewHolder> {
+public class ListTransactionAdapter extends RecyclerView.Adapter<ListTransactionAdapter.ViewHolder>
+implements ItemTouchHelperAdapter {
 
     private Context context;
     private ArrayList<Transaction> listTransaction;
+    private TransactionFragment transactionFragment;
 
-    public ListTransactionAdapter(Context context, ArrayList<Transaction> listTransaction) {
+    public ListTransactionAdapter(Context context, ArrayList<Transaction> listTransaction, TransactionFragment transactionFragment) {
         this.context = context;
         this.listTransaction = listTransaction;
+        this.transactionFragment = transactionFragment;
     }
 
 
@@ -70,6 +76,14 @@ public class ListTransactionAdapter extends RecyclerView.Adapter<ListTransaction
     @Override
     public int getItemCount() {
         return listTransaction.size();
+    }
+
+
+    @Override
+    public void onItemDismiss(int position) {
+        transactionFragment.deleteTransaction(listTransaction.get(position).getId());
+        listTransaction.remove(position);
+        notifyItemRemoved(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

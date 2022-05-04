@@ -150,6 +150,14 @@ public class SQLHelper extends SQLiteOpenHelper {
         return incomeAmount - expensesAmount;
     }
 
+    public ArrayList<Category> getListAccountWithAmount(){
+        ArrayList<Category> listAccount = getCategoryByType("ACCOUNT");
+        for(Category account: listAccount){
+            account.setAmount(getAccountAmount(false, account.getId()));
+        }
+        return listAccount;
+    }
+
     public Category getCategoryById(int id) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CATEGORY + " WHERE " + CATEGORY_ID + " = ?", new String[]{String.valueOf(id)});
@@ -190,9 +198,11 @@ public class SQLHelper extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<Transaction> getTransaction() {
+    public ArrayList<Transaction> getTransaction(String startDate, String endDate) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TRANSACTION, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TRANSACTION
+                + " WHERE " + TRANSACTION_DATE + " >= ? AND "
+                + TRANSACTION_DATE + " <= ?", new String[]{startDate, endDate});
 
         ArrayList<Transaction> listTransaction = new ArrayList<>();
         if (cursor.getCount() == 0) return listTransaction;
@@ -212,6 +222,10 @@ public class SQLHelper extends SQLiteOpenHelper {
         return listTransaction;
     }
 
+    public void deleteTransaction(int transactionId){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_TRANSACTION, TRANSACTION_ID + " = " + transactionId, null);
+    }
     public int getCategoryAmountOfType(String categoryType, String startDate, String endDate) {
         SQLiteDatabase db = getReadableDatabase();
         String sql = "SELECT SUM(" + TRANSACTION_AMOUNT + ") amount FROM " + TABLE_TRANSACTION;

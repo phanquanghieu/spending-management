@@ -24,7 +24,7 @@
 
             <include layout="@layout/header_account"/>
             <Button
-                android:id="@+id/btn_add_account"
+                android:id="@+id/btnAddAccount"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:icon="@drawable/ic_add_48"
@@ -43,10 +43,42 @@
                 android:paddingTop="7dp"
                 android:text="ACCOUNTS"
                 android:textColor="@color/white"
-                android:textSize="16dp"
+                android:textSize="17dp"
+                android:textStyle="bold"
                 android:textAlignment="center"
                 />
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Account"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/txtTotalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="333333"
+            android:textSize="26sp"
+            android:textAlignment="textEnd"
+            />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvListAccount"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="70dp" />
 
 </LinearLayout>

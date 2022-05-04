@@ -90,12 +90,6 @@ public class CategoryFragment extends Fragment {
         Button btnDateLeft = view.findViewById(R.id.btnDateLeft);
         Button btnDateRight = view.findViewById(R.id.btnDateRight);
 
-        if(mainActivity.isAllTime) {
-            txtDate.setText("All Time");
-        }else{
-            txtDate.setText(Util.getMonthByStartDate(mainActivity.startDate));
-        }
-
         txtDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

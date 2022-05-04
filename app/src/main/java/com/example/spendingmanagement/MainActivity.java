@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
         TextView txtDate = view.findViewById(R.id.txtDate);
 
+        if(txtDate == null) return;
+
         if(isAllTime) {
             txtDate.setText("All Time");
         }else{
