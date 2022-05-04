@@ -87,7 +87,17 @@ public class SQLHelper extends SQLiteOpenHelper {
 
         return result != -1;
     }
-
+    public boolean updateCategory(Category category) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CATEGORY_NAME, category.getName());
+        contentValues.put(CATEGORY_TYPE, category.getType());
+        contentValues.put(CATEGORY_COLOR, category.getColor());
+        contentValues.put(CATEGORY_COLOR_CODE, category.getColorCode());
+        contentValues.put(CATEGORY_ICON, category.getIcon());
+        long result = db.update(TABLE_CATEGORY, contentValues,CATEGORY_ID + " = ?", new String[] { String.valueOf(category.getId()) });
+        return result != -1;
+    }
     public ArrayList<Category> getCategoryByType(String type) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CATEGORY + " WHERE " + CATEGORY_TYPE + " = ?", new String[]{type});

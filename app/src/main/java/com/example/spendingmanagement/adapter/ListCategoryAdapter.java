@@ -1,16 +1,16 @@
 package com.example.spendingmanagement.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.example.spendingmanagement.ui.category.EditCategoryActivity;
 import com.example.spendingmanagement.R;
 import com.example.spendingmanagement.model.Category;
 
@@ -41,6 +41,14 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
         holder.txtCategoryName.setText(listCategory.get(position).getName());
         holder.categoryBgIc.setBackgroundResource(listCategory.get(position).getColor());
         holder.categoryBgIc.setImageResource(listCategory.get(position).getIcon());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, EditCategoryActivity.class);
+                intent.putExtra("category",listCategory.get(position) );
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

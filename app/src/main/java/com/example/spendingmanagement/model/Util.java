@@ -8,11 +8,11 @@ import java.util.Date;
 
 public class Util {
     public static String[] colorName = {"Sky", "Green", "Red", "Teal", "Yellow"};
-    public static int[] colorId = {R.drawable.circle_sky, R.drawable.circle_green, R.drawable.circle_red, R.drawable.circle_teal, R.drawable.circle_yellow};
-    public static int[] colorCodeId = {R.color.sky_500, R.color.green_500, R.color.red_500, R.color.teal_500, R.color.yellow_500};
+    public static Integer[] colorId = {R.drawable.circle_sky, R.drawable.circle_green, R.drawable.circle_red, R.drawable.circle_teal, R.drawable.circle_yellow};
+    public static Integer[] colorCodeId = {R.color.sky_500, R.color.green_500, R.color.red_500, R.color.teal_500, R.color.yellow_500};
 
     public static String[] iconName = {"Card", "Bus", "Diamond"};
-    public static int[] iconId = {R.drawable.ic_account_24, R.drawable.ic_bus_24, R.drawable.ic_diamond_24};
+    public static Integer[] iconId = {R.drawable.ic_account_24, R.drawable.ic_bus_24, R.drawable.ic_diamond_24};
 
     public static int getColorIdByName(String name) {
         return colorId[Arrays.asList(colorName).indexOf(name)];
@@ -25,7 +25,12 @@ public class Util {
     public static int getIconIdByName(String name) {
         return iconId[Arrays.asList(iconName).indexOf(name)];
     }
-
+    public static String getNameColorByColorId(int id) {
+        return colorName[Arrays.asList(colorId).indexOf(id)];
+    }
+    public static String getNameIconByIconId(int id) {
+        return iconName[Arrays.asList(iconId).indexOf(id)];
+    }
     public static String getDateNow(){
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
