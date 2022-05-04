@@ -1,6 +1,8 @@
 package com.example.spendingmanagement.model;
 
-public class Category {
+import java.io.Serializable;
+
+public class Category implements Serializable {
     private int id;
     private String name;
     private String type;
@@ -94,5 +96,18 @@ public class Category {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", color=" + color +
+                ", colorCode=" + colorCode +
+                ", icon=" + icon +
+                ", amount=" + amount +
+                '}';
     }
 }
