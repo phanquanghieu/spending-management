@@ -2,8 +2,10 @@ package com.example.spendingmanagement.model;
 
 import com.example.spendingmanagement.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Util {
@@ -13,6 +15,7 @@ public class Util {
 
     public static String[] iconName = {"Card", "Bus", "Diamond"};
     public static Integer[] iconId = {R.drawable.ic_account_24, R.drawable.ic_bus_24, R.drawable.ic_diamond_24};
+
 
     public static int getColorIdByName(String name) {
         return colorId[Arrays.asList(colorName).indexOf(name)];
@@ -35,5 +38,44 @@ public class Util {
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return simpleDateFormat.format(date);
+    }
+    public static String getMonthByStartDate(String startDate){
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+            return  new SimpleDateFormat("MM - yyyy").format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+    public static String getStartDateByDateNow(){
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.set(Calendar.DAY_OF_MONTH, c.getActualMinimum(Calendar.DAY_OF_MONTH));
+        return new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
+    }
+
+    public static String getStartDateByStartDate(String startDate ,int m){
+        Calendar c = Calendar.getInstance();
+        try {
+            c.setTime(new SimpleDateFormat("yyyy-MM-dd").parse(startDate));
+            c.add(Calendar.MONTH, m);
+            return new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public static String getEndDateByStartDate(String startDate){
+        Calendar c = Calendar.getInstance();
+        try {
+            c.setTime(new SimpleDateFormat("yyyy-MM-dd").parse(startDate));
+            c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
+            return new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 }

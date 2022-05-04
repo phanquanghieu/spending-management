@@ -17,7 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.spendingmanagement.MainActivity;
 import com.example.spendingmanagement.R;
 import com.example.spendingmanagement.adapter.HomeCategoryAdapter;
+import com.example.spendingmanagement.model.Category;
+import com.example.spendingmanagement.model.Util;
 import com.example.spendingmanagement.sql.SQLHelper;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class CategoryFragment extends Fragment {
 
@@ -75,7 +80,68 @@ public class CategoryFragment extends Fragment {
             }
         });
 
+        bindDate();
+
         return view;
+    }
+
+    private void  bindDate(){
+        TextView txtDate = view.findViewById(R.id.txtDate);
+        Button btnDateLeft = view.findViewById(R.id.btnDateLeft);
+        Button btnDateRight = view.findViewById(R.id.btnDateRight);
+
+        if(mainActivity.isAllTime) {
+            txtDate.setText("All Time");
+        }else{
+            txtDate.setText(Util.getMonthByStartDate(mainActivity.startDate));
+        }
+
+        txtDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivity.isAllTime = true;
+                mainActivity.startDate = "2000-01-01";
+                mainActivity.endDate = "2025-01-01";
+                renderCategory();
+            }
+        });
+
+        btnDateLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String startDate = "";
+
+                if(mainActivity.isAllTime){
+                    startDate = Util.getStartDateByDateNow();
+                }else{
+                    startDate = Util.getStartDateByStartDate(mainActivity.startDate, -1);
+                }
+
+                mainActivity.isAllTime = false;
+                mainActivity.startDate = startDate;
+                mainActivity.endDate = Util.getEndDateByStartDate(startDate);
+                renderCategory();
+            }
+        });
+
+        btnDateRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String startDate = "";
+
+                if(mainActivity.isAllTime){
+                    startDate = Util.getStartDateByDateNow();
+                }else{
+                    startDate = Util.getStartDateByStartDate(mainActivity.startDate, 1);
+                }
+
+                mainActivity.isAllTime = false;
+                mainActivity.startDate = startDate;
+                mainActivity.endDate = Util.getEndDateByStartDate(startDate);
+                renderCategory();
+            }
+        });
+
     }
 
 
@@ -87,9 +153,10 @@ public class CategoryFragment extends Fragment {
 
     public void renderCategory() {
         System.out.println("renderCategory");
-        rcvHomeCategory.setAdapter(new HomeCategoryAdapter(getActivity(), sqlHelper.getCategoryWithAmountByType(currentCategoryType), this));
-        txtExpensesAmount.setText("₫ " + sqlHelper.getCategoryAmountOfType("EXPENSES"));
-        txtIncomeAmount.setText("₫ " + sqlHelper.getCategoryAmountOfType("INCOME"));
+        ArrayList<Category> listCategory = sqlHelper.getCategoryWithAmountByType(currentCategoryType, mainActivity.startDate, mainActivity.endDate);
+        rcvHomeCategory.setAdapter(new HomeCategoryAdapter(getActivity(), listCategory, this));
+        txtExpensesAmount.setText("₫ " + sqlHelper.getCategoryAmountOfType("EXPENSES", mainActivity.startDate, mainActivity.endDate));
+        txtIncomeAmount.setText("₫ " + sqlHelper.getCategoryAmountOfType("INCOME", mainActivity.startDate, mainActivity.endDate));
         mainActivity.bindHeader(view);
     }
 }

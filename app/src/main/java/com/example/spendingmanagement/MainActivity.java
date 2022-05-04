@@ -2,6 +2,7 @@ package com.example.spendingmanagement;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private SQLHelper sqlHelper;
 
     public Category currentAccount;
+    public String startDate = "2000-01-01", endDate= "2025-01-01";
+    public Boolean isAllTime = true;
     public Boolean isAllAccount;
 
     @Override
@@ -67,9 +70,17 @@ public class MainActivity extends AppCompatActivity {
             accountName = currentAccount.getName();
             amount = sqlHelper.getAccountAmount(false, currentAccount.getId()) + "";
         }
-
         txtHeaderAccount.setText(accountName);
         txtHeaderAmount.setText("₫ " + amount);
+
+
+        TextView txtDate = view.findViewById(R.id.txtDate);
+
+        if(isAllTime) {
+            txtDate.setText("All Time");
+        }else{
+            txtDate.setText(Util.getMonthByStartDate(startDate));
+        }
     }
 
 }
