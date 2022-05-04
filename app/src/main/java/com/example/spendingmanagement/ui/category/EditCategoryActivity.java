@@ -41,12 +41,12 @@ public class EditCategoryActivity extends AppCompatActivity {
         inpCategoryName = findViewById(R.id.inpCategoryName);
         actCategoryColor = findViewById(R.id.actCategoryColor);
         actCategoryIcon = findViewById(R.id.actCategoryIcon);
-
+        actCategoryColor.setText(Util.getNameColorByColorId(category.getColor()));
+        actCategoryIcon.setText(Util.getNameIconByIconId(category.getIcon()));
         actCategoryColor.setAdapter(new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Util.colorName));
         actCategoryIcon.setAdapter(new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Util.iconName));
         inpCategoryName.getEditText().setText(category.getName());
-        actCategoryColor.setText(Util.getNameColorByColorId(category.getColor()));
-        actCategoryIcon.setText(Util.getNameIconByIconId(category.getIcon()));
+
         btnCreateCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +57,7 @@ public class EditCategoryActivity extends AppCompatActivity {
                 int categoryIconId = Util.getIconIdByName(actCategoryIcon.getText().toString());
                 String  categoryType= category.getType();
 
-                Category categoryNew = new Category(categoryName, categoryType, categoryColorId, categoryColorCodeId, categoryIconId);
+                Category categoryNew = new Category(category.getId(),categoryName, categoryType, categoryColorId, categoryColorCodeId, categoryIconId);
 
                 if(sqlHelper.updateCategory(categoryNew)){
                     Toast.makeText(EditCategoryActivity.this, "Update Success", Toast.LENGTH_SHORT).show();
