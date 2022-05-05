@@ -22,11 +22,11 @@ public class EditCategoryActivity extends AppCompatActivity {
     private Button btnCreateCategory;
     private TextInputLayout inpCategoryName;
     private AutoCompleteTextView actCategoryColor, actCategoryIcon;
-
+    private Button btnDeleteCategory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_category);
+        setContentView(R.layout.activity_edit_category);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -41,12 +41,21 @@ public class EditCategoryActivity extends AppCompatActivity {
         inpCategoryName = findViewById(R.id.inpCategoryName);
         actCategoryColor = findViewById(R.id.actCategoryColor);
         actCategoryIcon = findViewById(R.id.actCategoryIcon);
+        btnDeleteCategory = findViewById(R.id.btnDeleteCategory);
         actCategoryColor.setText(Util.getNameColorByColorId(category.getColor()));
         actCategoryIcon.setText(Util.getNameIconByIconId(category.getIcon()));
         actCategoryColor.setAdapter(new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Util.colorName));
         actCategoryIcon.setAdapter(new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Util.iconName));
         inpCategoryName.getEditText().setText(category.getName());
+        btnDeleteCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sqlHelper.deleteCategory(category.getId());
+                Toast.makeText(EditCategoryActivity.this, "Delete Success", Toast.LENGTH_SHORT).show();
+                finish();
 
+            }
+        });
         btnCreateCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

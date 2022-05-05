@@ -226,6 +226,10 @@ public class SQLHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_TRANSACTION, TRANSACTION_ID + " = " + transactionId, null);
     }
+    public void deleteCategory(int categoryId){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_CATEGORY, CATEGORY_ID + " = " + categoryId, null);
+    }
     public int getCategoryAmountOfType(String categoryType, String startDate, String endDate) {
         SQLiteDatabase db = getReadableDatabase();
         String sql = "SELECT SUM(" + TRANSACTION_AMOUNT + ") amount FROM " + TABLE_TRANSACTION;
