@@ -102,7 +102,12 @@ public class TransactionFragment extends Fragment {
     }
 
     private void renderTransaction(){
-        ArrayList<Transaction> listTransaction = sqlHelper.getTransaction(mainActivity.startDate, mainActivity.endDate);
+        int accountId = -1;
+        if(mainActivity.isAllAccount != null && !mainActivity.isAllAccount){
+            accountId = mainActivity.currentAccount.getId();
+        }
+        ArrayList<Transaction> listTransaction = sqlHelper.getTransaction(
+                mainActivity.startDate, mainActivity.endDate, accountId);
 
         ListTransactionAdapter transactionAdapter = new ListTransactionAdapter(getActivity(), listTransaction, this);
         ItemTouchHelper.Callback callback =
