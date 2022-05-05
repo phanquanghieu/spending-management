@@ -74,7 +74,7 @@ public class AddTransactionFragment extends BottomSheetDialogFragment {
         btnConfirm = view.findViewById(R.id.btnConfirm);
 
         ArrayList<Category> listAccount = sqlHelper.getCategoryByType("ACCOUNT");
-        ArrayList<String> listAccountName = getListName(listAccount);
+        ArrayList<String> listAccountName = Util.getListName(listAccount);
 
         currentAccount = ((MainActivity) getActivity()).currentAccount;
 
@@ -94,7 +94,7 @@ public class AddTransactionFragment extends BottomSheetDialogFragment {
             txtToIcon.setColorFilter(getResources().getColor(categorySelected.getColorCode()));
 
             ArrayList<Category> listCategoryExpenses = sqlHelper.getCategoryByType("EXPENSES");
-            ArrayList<String> listCategoryExpensesName = getListName(listCategoryExpenses);
+            ArrayList<String> listCategoryExpensesName = Util.getListName(listCategoryExpenses);
 
             ArrayAdapter adapterFrom = new ArrayAdapter(getActivity(), R.layout.item_spinner, listAccountName);
             adapterFrom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -180,7 +180,7 @@ public class AddTransactionFragment extends BottomSheetDialogFragment {
             txtToIcon.setColorFilter(getResources().getColor(currentAccount.getColorCode()));
 
             ArrayList<Category> listCategoryIncome = sqlHelper.getCategoryByType("INCOME");
-            ArrayList<String> listCategoryIncomeName = getListName(listCategoryIncome);
+            ArrayList<String> listCategoryIncomeName = Util.getListName(listCategoryIncome);
 
             ArrayAdapter adapterFrom = new ArrayAdapter(getActivity(), R.layout.item_spinner, listCategoryIncomeName);
             adapterFrom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -257,15 +257,5 @@ public class AddTransactionFragment extends BottomSheetDialogFragment {
         super.onDismiss(dialog);
         System.out.println("AddTransactionFragment dismiss");
         categoryFragment.renderCategory();
-    }
-
-
-    private ArrayList<String> getListName(ArrayList<Category> listCategory){
-        ArrayList<String> listName = new ArrayList<>();
-        for (Category category : listCategory
-        ) {
-            listName.add(category.getName());
-        }
-        return listName;
     }
 }

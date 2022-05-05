@@ -81,7 +81,11 @@ implements ItemTouchHelperAdapter {
 
     @Override
     public void onItemDismiss(int position) {
-        transactionFragment.deleteTransaction(listTransaction.get(position).getId());
+        try {
+            transactionFragment.deleteTransaction(listTransaction.get(position).getId());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         listTransaction.remove(position);
         notifyItemRemoved(position);
     }

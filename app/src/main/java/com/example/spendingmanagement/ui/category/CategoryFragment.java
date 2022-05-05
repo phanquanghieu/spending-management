@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -147,6 +149,7 @@ public class CategoryFragment extends Fragment {
 
     public void renderCategory() {
         System.out.println("renderCategory");
+        int accountId = - 1;
         ArrayList<Category> listCategory = sqlHelper.getCategoryWithAmountByType(currentCategoryType, mainActivity.startDate, mainActivity.endDate);
         rcvHomeCategory.setAdapter(new HomeCategoryAdapter(getActivity(), listCategory, this));
         txtExpensesAmount.setText("₫ " + sqlHelper.getCategoryAmountOfType("EXPENSES", mainActivity.startDate, mainActivity.endDate));

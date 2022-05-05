@@ -67,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
             accountName = "All Account";
             amount = sqlHelper.getAccountAmount(true, 0) + "";
         } else {
-            accountName = currentAccount.getName();
+            accountName = "Filter - " + currentAccount.getName();
             amount = sqlHelper.getAccountAmount(false, currentAccount.getId()) + "";
         }
-        txtHeaderAccount.setText(accountName);
+        if(txtHeaderAccount != null) txtHeaderAccount.setText(accountName);
         txtHeaderAmount.setText("₫ " + amount);
 
 

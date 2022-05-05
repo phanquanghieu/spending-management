@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,9 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.spendingmanagement.MainActivity;
 import com.example.spendingmanagement.R;
 import com.example.spendingmanagement.adapter.ListAccountAdapter;
+import com.example.spendingmanagement.model.Category;
+import com.example.spendingmanagement.model.Util;
 import com.example.spendingmanagement.sql.SQLHelper;
 import com.example.spendingmanagement.ui.category.AddCategoryActivity;
 import com.example.spendingmanagement.ui.category.ListCategoryActivity;
+
+import java.util.ArrayList;
 
 public class AccountFragment extends Fragment {
     private View view;
@@ -58,7 +65,7 @@ public class AccountFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
+        bindAccount();
         return view;
     }
 
@@ -66,6 +73,56 @@ public class AccountFragment extends Fragment {
     public void onResume() {
         super.onResume();
         renderAccount();
+    }
+
+    private void bindAccount(){
+        Spinner spnAccount = view.findViewById(R.id.spnAccount);
+        TextView txtHeaderAmount = view.findViewById(R.id.txtHeaderAmount);
+
+        if(mainActivity.isAllAccount == null) return;
+        ArrayList<Category> listAccount = sqlHelper.getCategoryByType("ACCOUNT");
+        ArrayList<String> listAccountName = Util.getListName(listAccount);
+        listAccountName.add(0, "All Account");
+        ArrayAdapter adapterAccount = new ArrayAdapter(getActivity(), R.layout.item_spinner_account, listAccountName);
+        adapterAccount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnAccount.setAdapter(adapterAccount);
+
+        String amount = "";
+        if (mainActivity.isAllAccount) {
+            spnAccount.setSelection(adapterAccount.getPosition("All Account"));
+            amount = sqlHelper.getAccountAmount(true, 0) + "";
+        } else {
+            spnAccount.setSelection(adapterAccount.getPosition(mainActivity.currentAccount.getName()));
+            amount = sqlHelper.getAccountAmount(false, mainActivity.currentAccount.getId()) + "";
+        }
+        txtHeaderAmount.setText("₫ " + amount);
+
+        spnAccount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spnAccount.setSelection(i);
+                if (i == 0){
+                    mainActivity.isAllAccount = true;
+                    mainActivity.currentAccount = listAccount.get(0);
+                }else{
+                    mainActivity.isAllAccount = false;
+                    mainActivity.currentAccount = listAccount.get(i-1);
+                }
+
+                String amount = "";
+                if (mainActivity.isAllAccount) {
+                    amount = sqlHelper.getAccountAmount(true, 0) + "";
+                } else {
+                    amount = sqlHelper.getAccountAmount(false, mainActivity.currentAccount.getId()) + "";
+                }
+                txtHeaderAmount.setText("₫ " + amount);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void renderAccount(){
