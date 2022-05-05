@@ -236,6 +236,8 @@ public class SQLHelper extends SQLiteOpenHelper {
     public void deleteCategory(int categoryId){
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_CATEGORY, CATEGORY_ID + " = " + categoryId, null);
+        db.delete(TABLE_TRANSACTION, TRANSACTION_TO_ID + " = " + categoryId, null);
+        db.delete(TABLE_TRANSACTION, TRANSACTION_FROM_ID + " = " + categoryId, null);
     }
     public int getCategoryAmountOfType(String categoryType, String startDate, String endDate, int accountId) {
         SQLiteDatabase db = getReadableDatabase();
