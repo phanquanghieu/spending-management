@@ -149,11 +149,17 @@ public class CategoryFragment extends Fragment {
 
     public void renderCategory() {
         System.out.println("renderCategory");
-        int accountId = - 1;
-        ArrayList<Category> listCategory = sqlHelper.getCategoryWithAmountByType(currentCategoryType, mainActivity.startDate, mainActivity.endDate);
+        int accountId = -1;
+        if(mainActivity.isAllAccount != null && !mainActivity.isAllAccount){
+            accountId = mainActivity.currentAccount.getId();
+        }
+        ArrayList<Category> listCategory = sqlHelper.getCategoryWithAmountByType(currentCategoryType,
+                mainActivity.startDate, mainActivity.endDate, accountId);
         rcvHomeCategory.setAdapter(new HomeCategoryAdapter(getActivity(), listCategory, this));
-        txtExpensesAmount.setText("₫ " + sqlHelper.getCategoryAmountOfType("EXPENSES", mainActivity.startDate, mainActivity.endDate));
-        txtIncomeAmount.setText("₫ " + sqlHelper.getCategoryAmountOfType("INCOME", mainActivity.startDate, mainActivity.endDate));
+        txtExpensesAmount.setText("₫ " + sqlHelper.getCategoryAmountOfType("EXPENSES",
+                mainActivity.startDate, mainActivity.endDate, accountId));
+        txtIncomeAmount.setText("₫ " + sqlHelper.getCategoryAmountOfType("INCOME",
+                mainActivity.startDate, mainActivity.endDate, accountId));
         mainActivity.bindHeader(view);
     }
 }
