@@ -4,6 +4,7 @@ import com.example.spendingmanagement.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -77,5 +78,14 @@ public class Util {
             e.printStackTrace();
             return "";
         }
+    }
+
+    public static ArrayList<String> getListName(ArrayList<Category> listCategory){
+        ArrayList<String> listName = new ArrayList<>();
+        for (Category category : listCategory
+        ) {
+            listName.add(category.getName());
+        }
+        return listName;
     }
 }
