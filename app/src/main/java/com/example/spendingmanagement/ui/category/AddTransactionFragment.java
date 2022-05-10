@@ -1,5 +1,6 @@
 package com.example.spendingmanagement.ui.category;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,6 +29,7 @@ import com.example.spendingmanagement.sql.SQLHelper;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class AddTransactionFragment extends BottomSheetDialogFragment {
 
@@ -34,13 +37,18 @@ public class AddTransactionFragment extends BottomSheetDialogFragment {
     private Category categorySelected;
     private SQLHelper sqlHelper;
     private Spinner spnFrom, spnTo;
-    private TextView txtFromLabel, txtToLabel, txtLabel, txtAmount;
+    private TextView txtFromLabel, txtToLabel, txtLabel, txtAmount, txtDate;
     private LinearLayout txtFromColor, txtToColor;
     private ImageView txtFromIcon, txtToIcon;
     private EditText inpAmount;
     private Button btnConfirm;
     private Category currentAccount;
     private String currentCategoryType;
+
+    private int lastSelectedYear;
+    private int lastSelectedMonth;
+    private int lastSelectedDayOfMonth;
+
 
     public AddTransactionFragment(CategoryFragment categoryFragment, Category categorySelected) {
         this.categoryFragment = categoryFragment;
@@ -71,6 +79,7 @@ public class AddTransactionFragment extends BottomSheetDialogFragment {
         txtLabel = view.findViewById(R.id.txtLabel);
         txtAmount = view.findViewById(R.id.txtAmount);
         inpAmount = view.findViewById(R.id.inpAmount);
+        txtDate = view.findViewById(R.id.txtDate);
         btnConfirm = view.findViewById(R.id.btnConfirm);
 
         ArrayList<Category> listAccount = sqlHelper.getCategoryByType("ACCOUNT");
@@ -141,12 +150,12 @@ public class AddTransactionFragment extends BottomSheetDialogFragment {
             btnConfirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    String date = txtDate.getText().toString();
                     if(inpAmount.getText().toString().equals("")) return;
                     int amount = Integer.parseInt(inpAmount.getText().toString());
 
                     Category fromCategory = listAccount.get(Integer.parseInt(String.valueOf(spnFrom.getSelectedItemId())));
                     Category toCategory = listCategoryExpenses.get(Integer.parseInt(String.valueOf(spnTo.getSelectedItemId())));
-                    String date = Util.getDateNow();
 
                     Transaction transactionNew = new Transaction();
                     transactionNew.setFromCategory(fromCategory);
@@ -227,12 +236,13 @@ public class AddTransactionFragment extends BottomSheetDialogFragment {
             btnConfirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    String date = txtDate.getText().toString();
                     if(inpAmount.getText().toString().equals("")) return;
                     int amount = Integer.parseInt(inpAmount.getText().toString());
 
                     Category fromCategory = listCategoryIncome.get(Integer.parseInt(String.valueOf(spnFrom.getSelectedItemId())));
                     Category toCategory = listAccount.get(Integer.parseInt(String.valueOf(spnTo.getSelectedItemId())));
-                    String date = Util.getDateNow();
+
 
                     Transaction transactionNew = new Transaction();
                     transactionNew.setFromCategory(fromCategory);
@@ -249,6 +259,30 @@ public class AddTransactionFragment extends BottomSheetDialogFragment {
             });
         }
 
+        txtDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        lastSelectedYear = i;
+                        lastSelectedMonth = i1;
+                        lastSelectedDayOfMonth = i2;
+
+                        txtDate.setText(calc(i) + "-" + calc(i1+1) + "-" + calc(i2));
+                    }
+                };
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), dateSetListener,
+                        lastSelectedYear, lastSelectedMonth,lastSelectedDayOfMonth);
+                datePickerDialog.show();
+            }
+        });
+        final Calendar c = Calendar.getInstance();
+        this.lastSelectedYear = c.get(Calendar.YEAR);
+        this.lastSelectedMonth = c.get(Calendar.MONTH);
+        this.lastSelectedDayOfMonth = c.get(Calendar.DAY_OF_MONTH);
+        txtDate.setText(calc(lastSelectedYear) + "-" + calc(lastSelectedMonth + 1) + "-" + calc(lastSelectedDayOfMonth));
         return view;
     }
 
@@ -257,5 +291,10 @@ public class AddTransactionFragment extends BottomSheetDialogFragment {
         super.onDismiss(dialog);
         System.out.println("AddTransactionFragment dismiss");
         categoryFragment.renderCategory();
+    }
+
+    private String calc (int i){
+        if(i < 10) return "0"+i;
+        return "" + i;
     }
 }

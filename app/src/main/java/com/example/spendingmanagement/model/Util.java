@@ -10,12 +10,17 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Util {
-    public static String[] colorName = {"Sky", "Green", "Red", "Teal", "Yellow"};
-    public static Integer[] colorId = {R.drawable.circle_sky, R.drawable.circle_green, R.drawable.circle_red, R.drawable.circle_teal, R.drawable.circle_yellow};
-    public static Integer[] colorCodeId = {R.color.sky_500, R.color.green_500, R.color.red_500, R.color.teal_500, R.color.yellow_500};
+    public static String[] colorName = {"Sky", "Green", "Red", "Teal", "Yellow", "Violet", "Fuchsia", "Pink", "Rose"};
+    public static Integer[] colorId = {R.drawable.circle_sky, R.drawable.circle_green, R.drawable.circle_red, R.drawable.circle_teal,
+            R.drawable.circle_orange,R.drawable.circle_yellow,
+    R.drawable.circle_violet, R.drawable.circle_fuchsia, R.drawable.circle_pink, R.drawable.circle_rose};
+    public static Integer[] colorCodeId = {R.color.sky_500, R.color.green_500, R.color.red_500, R.color.teal_500,
+            R.color.orange_500, R.color.yellow_500,
+    R.color.violet_500, R.color.fuchsia_500, R.color.pink_500, R.color.rose_500};
 
-    public static String[] iconName = {"Card", "Bus", "Diamond"};
-    public static Integer[] iconId = {R.drawable.ic_account_24, R.drawable.ic_bus_24, R.drawable.ic_diamond_24};
+    public static String[] iconName = {"Card", "Bus", "Diamond", "Heal", "Taxi", "Money", "Tool"};
+    public static Integer[] iconId = {R.drawable.ic_account_24, R.drawable.ic_bus_24, R.drawable.ic_diamond_24,
+    R.drawable.ic_favorite_24, R.drawable.ic_taxi_24, R.drawable.ic_money, R.drawable.ic_setting_24};
 
 
     public static int getColorIdByName(String name) {
