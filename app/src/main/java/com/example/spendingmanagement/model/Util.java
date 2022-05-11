@@ -10,17 +10,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Util {
-    public static String[] colorName = {"Sky", "Green", "Red", "Teal", "Yellow", "Violet", "Fuchsia", "Pink", "Rose"};
-    public static Integer[] colorId = {R.drawable.circle_sky, R.drawable.circle_green, R.drawable.circle_red, R.drawable.circle_teal,
-            R.drawable.circle_orange,R.drawable.circle_yellow,
-    R.drawable.circle_violet, R.drawable.circle_fuchsia, R.drawable.circle_pink, R.drawable.circle_rose};
-    public static Integer[] colorCodeId = {R.color.sky_500, R.color.green_500, R.color.red_500, R.color.teal_500,
-            R.color.orange_500, R.color.yellow_500,
-    R.color.violet_500, R.color.fuchsia_500, R.color.pink_500, R.color.rose_500};
+    public static String[] colorName = {"Sky", "Green", "Red", "Teal", "Yellow"};
+    public static Integer[] colorId = {R.drawable.circle_sky, R.drawable.circle_green, R.drawable.circle_red, R.drawable.circle_teal, R.drawable.circle_yellow};
+    public static Integer[] colorCodeId = {R.color.sky_500, R.color.green_500, R.color.red_500, R.color.teal_500, R.color.yellow_500};
 
-    public static String[] iconName = {"Card", "Bus", "Diamond", "Heal", "Taxi", "Money", "Tool"};
-    public static Integer[] iconId = {R.drawable.ic_account_24, R.drawable.ic_bus_24, R.drawable.ic_diamond_24,
-    R.drawable.ic_favorite_24, R.drawable.ic_taxi_24, R.drawable.ic_money, R.drawable.ic_setting_24};
+    public static String[] iconName = {"Card", "Bus", "Diamond","Education","Health","Shopping","Groceries","Restaurant","Family","Gifts","Internet","Electric", "Water","Entertainment","Games","Travel","Insurance","Technology","Movie","Salary"};
+    public static Integer[] iconId = {R.drawable.ic_account_24, R.drawable.ic_bus_24, R.drawable.ic_diamond_24, R.drawable.ic_education,R.drawable.ic_baseline_health_24,R.drawable.ic_shopping_24, R.drawable.ic_groceries_24,R.drawable.ic_restaurant,
+            R.drawable.ic_family_24,R.drawable.ic_gift_icon4,R.drawable.ic_internet_24, R.drawable.ic_electric_24, R.drawable.ic_water,R.drawable.ic_entertainment, R.drawable.ic_games_24 ,R.drawable.ic_travel_24, R.drawable.ic_insurance, R.drawable.ic_technology, R.drawable.ic_movie_24 ,R.drawable.ic_curr};
 
 
     public static int getColorIdByName(String name) {

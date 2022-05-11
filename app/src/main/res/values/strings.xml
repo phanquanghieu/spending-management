@@ -7,6 +7,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="list_category">List Category</string>
     <string name="add_category">New Category</string>
+    <string name="add_account">New Account</string>
     <string name="edit_category">Edit Category</string>
     <string name="title_activity_list_category">ListCategoryActivity</string>
     <string name="tab_expense">Expenses</string>
