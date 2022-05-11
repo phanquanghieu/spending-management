@@ -46,6 +46,7 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
             public void onClick(View view) {
                 Intent intent = new Intent(context, EditCategoryActivity.class);
                 intent.putExtra("category",listCategory.get(position) );
+                intent.putExtra("categoryType", "CATEGORY");
                 context.startActivity(intent);
             }
         });

@@ -1,6 +1,7 @@
 package com.example.spendingmanagement.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spendingmanagement.R;
 import com.example.spendingmanagement.model.Category;
+import com.example.spendingmanagement.ui.category.EditCategoryActivity;
 
 import java.util.ArrayList;
 
@@ -42,7 +44,17 @@ public class ListAccountAdapter extends RecyclerView.Adapter<ListAccountAdapter.
         if(account.getAmount() < 0){
             holder.txtAccountAmount.setTextColor(context.getResources().getColor(R.color.red_500));
         }else{
-            holder.txtAccountAmount.setTextColor(context.getResources().getColor(R.color.green_500));        }
+            holder.txtAccountAmount.setTextColor(context.getResources().getColor(R.color.green_500));
+        }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, EditCategoryActivity.class);
+                intent.putExtra("category",listAccount.get(position) );
+                intent.putExtra("categoryType", "ACCOUNT");
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -59,6 +71,7 @@ public class ListAccountAdapter extends RecyclerView.Adapter<ListAccountAdapter.
             accountBgIc = itemView.findViewById(R.id.accountBgIc);
             txtAccountName = itemView.findViewById(R.id.txtAccountName);
             txtAccountAmount = itemView.findViewById(R.id.txtAccountAmount);
+
         }
     }
 }

@@ -1,14 +1,17 @@
 package com.example.spendingmanagement.ui.category;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.spendingmanagement.R;
@@ -23,6 +26,7 @@ public class EditCategoryActivity extends AppCompatActivity {
     private TextInputLayout inpCategoryName;
     private AutoCompleteTextView actCategoryColor, actCategoryIcon;
     private Button btnDeleteCategory;
+    private TextView txtTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,12 +40,18 @@ public class EditCategoryActivity extends AppCompatActivity {
         SQLHelper sqlHelper = new SQLHelper(EditCategoryActivity.this);
         Category category;
         category =  (Category) getIntent().getSerializableExtra("category");
+        String categoryType = getIntent().getStringExtra("categoryType");
 
         btnCreateCategory = findViewById(R.id.btnCreateCategory);
         inpCategoryName = findViewById(R.id.inpCategoryName);
         actCategoryColor = findViewById(R.id.actCategoryColor);
         actCategoryIcon = findViewById(R.id.actCategoryIcon);
         btnDeleteCategory = findViewById(R.id.btnDeleteCategory);
+        txtTitle = findViewById(R.id.txtTitle);
+        if(categoryType.equals("ACCOUNT")){
+            btnDeleteCategory.setText("Delete Account");
+            txtTitle.setText("Edit Account");
+        }
         actCategoryColor.setText(Util.getNameColorByColorId(category.getColor()));
         actCategoryIcon.setText(Util.getNameIconByIconId(category.getIcon()));
         actCategoryColor.setAdapter(new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Util.colorName));
@@ -50,9 +60,29 @@ public class EditCategoryActivity extends AppCompatActivity {
         btnDeleteCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sqlHelper.deleteCategory(category.getId());
-                Toast.makeText(EditCategoryActivity.this, "Delete Success", Toast.LENGTH_SHORT).show();
-                finish();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(EditCategoryActivity.this);
+                alertDialog.setTitle("Warning");
+                alertDialog.setIcon(R.drawable.ic_warning);
+                alertDialog.setMessage("Do you want to delete?");
+                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        sqlHelper.deleteCategory(category.getId());
+                        Toast.makeText(EditCategoryActivity.this, "Delete Success", Toast.LENGTH_SHORT).show();
+                        finish();
+
+                    }
+                });
+
+                alertDialog.show();
+
+
 
             }
         });
