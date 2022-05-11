@@ -3,25 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/drawable/circle_green.xml" value="0.1165" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/drawable/ic_baseline_language_24.xml" value="0.1" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/drawable/ic_category_24.xml" value="0.1165" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/drawable/ic_check_48.xml" value="0.1165" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/drawable/ic_gift_icon4.xml" value="0.114" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/drawable/ic_shopping_24.xml" value="0.1" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/drawable/ic_transport_24.xml" value="0.1" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/layout/activity_add_account.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/layout/activity_add_category.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/layout/fragment_account.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/layout/fragment_add_transaction.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/layout/fragment_list_category.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/layout/fragment_setting.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/layout/fragment_transaction.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/layout/item_list_account.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/layout/item_list_transaction.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/menu/bottom_nav_menu.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/Admin/spending-management/app/src/main/res/mipmap-anydpi-v26/ic_language.xml" value="0.1" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/circle_fuchsia.xml" value="0.1395" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/circle_green.xml" value="0.1325" />
@@ -37,11 +18,23 @@
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_add_48.xml" value="0.143" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_arrow_right_24.xml" value="0.1195" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_category_24.xml" value="0.1195" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_curr.xml" value="0.1365" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.14" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_groceries_24.xml" value="0.1365" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.14" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_insurance.xml" value="0.1365" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_internet_24.xml" value="0.1365" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_language.xml" value="0.1365" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1195" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_money.xml" value="0.1365" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_more_time.xml" value="0.1365" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.14" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_restaurant.xml" value="0.1365" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_search_48.xml" value="0.1195" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_shopping_24.xml" value="0.1365" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_start_screen.xml" value="0.1365" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_taxi_24.xml" value="0.1365" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/ic_technology.xml" value="0.1365" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/rect_expenses.xml" value="0.163" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/rect_green.xml" value="0.1" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/drawable/rect_red.xml" value="0.2455" />
@@ -51,7 +44,7 @@
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/activity_login.xml" value="0.23229166666666667" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/activity_main.xml" value="0.25343999226562525" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/activity_register.xml" value="0.23229166666666667" />
-        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/fragment_account.xml" value="0.25343999226562525" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/fragment_account.xml" value="0.1794871794871795" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/fragment_add_transaction.xml" value="0.24682971014492755" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/fragment_category.xml" value="0.25343999226562525" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/fragment_edit_category.xml" value="0.11296859169199595" />
@@ -60,10 +53,11 @@
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/fragment_list_category.xml" value="0.25343999226562525" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/fragment_notifications.xml" value="0.23229166666666667" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/fragment_setting.xml" value="0.19199999414062519" />
-        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/fragment_transaction.xml" value="0.25343999226562525" />
-        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/header_account.xml" value="0.37552083333333336" />
-        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/header_date.xml" value="0.25343999226562525" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/fragment_transaction.xml" value="0.1" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/header_account.xml" value="0.25343999226562525" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/header_date.xml" value="0.23557692307692307" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/item_home_category.xml" value="0.20697463768115942" />
+        <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/item_list_account.xml" value="0.23229166666666667" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/item_list_category.xml" value="0.25343999226562525" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/item_list_transaction.xml" value="0.23229166666666667" />
         <entry key="..\:/personal/hoc-online-2/MAD/code/SpendingManagement/app/src/main/res/layout/item_spinner.xml" value="0.11296859169199595" />
