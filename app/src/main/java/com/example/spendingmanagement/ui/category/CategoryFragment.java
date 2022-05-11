@@ -156,10 +156,10 @@ public class CategoryFragment extends Fragment {
         ArrayList<Category> listCategory = sqlHelper.getCategoryWithAmountByType(currentCategoryType,
                 mainActivity.startDate, mainActivity.endDate, accountId);
         rcvHomeCategory.setAdapter(new HomeCategoryAdapter(getActivity(), listCategory, this));
-        txtExpensesAmount.setText("₫ " + sqlHelper.getCategoryAmountOfType("EXPENSES",
-                mainActivity.startDate, mainActivity.endDate, accountId));
-        txtIncomeAmount.setText("₫ " + sqlHelper.getCategoryAmountOfType("INCOME",
-                mainActivity.startDate, mainActivity.endDate, accountId));
+        txtExpensesAmount.setText("₫ " + Util.convertMoney(sqlHelper.getCategoryAmountOfType("EXPENSES",
+                mainActivity.startDate, mainActivity.endDate, accountId)));
+        txtIncomeAmount.setText("₫ " + Util.convertMoney(sqlHelper.getCategoryAmountOfType("INCOME",
+                mainActivity.startDate, mainActivity.endDate, accountId)));
         mainActivity.bindHeader(view);
     }
 }

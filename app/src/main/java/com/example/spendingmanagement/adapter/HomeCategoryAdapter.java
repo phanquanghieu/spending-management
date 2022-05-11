@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.spendingmanagement.MainActivity;
 import com.example.spendingmanagement.R;
 import com.example.spendingmanagement.model.Category;
+import com.example.spendingmanagement.model.Util;
 import com.example.spendingmanagement.ui.category.AddTransactionFragment;
 import com.example.spendingmanagement.ui.category.CategoryFragment;
 
@@ -45,7 +46,7 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
         holder.categoryBgIc.setImageResource(homeCategory.get(position).getIcon());
         holder.categoryBgIc.setBackgroundResource(homeCategory.get(position).getColor());
         holder.txtCategoryName.setText(homeCategory.get(position).getName());
-        holder.txtCategoryAmount.setText("₫ " + homeCategory.get(position).getAmount());
+        holder.txtCategoryAmount.setText("₫ " + Util.convertMoney(homeCategory.get(position).getAmount()));
         holder.txtCategoryAmount.setTextColor(context.getResources().getColor(homeCategory.get(position).getColorCode()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

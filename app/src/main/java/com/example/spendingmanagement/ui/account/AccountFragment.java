@@ -49,7 +49,7 @@ public class AccountFragment extends Fragment {
 
         txtTotalAmount = view.findViewById(R.id.txtTotalAmount);
         int totalAmount = sqlHelper.getAccountAmount(true, 0);
-        txtTotalAmount.setText("₫ " + totalAmount);
+        txtTotalAmount.setText("₫ " + Util.convertMoney(totalAmount));
         if(totalAmount < 0){
             txtTotalAmount.setTextColor(getResources().getColor(R.color.red_500));
         }else{
@@ -87,15 +87,15 @@ public class AccountFragment extends Fragment {
         adapterAccount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnAccount.setAdapter(adapterAccount);
 
-        String amount = "";
+        int amount = 0;
         if (mainActivity.isAllAccount) {
             spnAccount.setSelection(adapterAccount.getPosition("All Account"));
-            amount = sqlHelper.getAccountAmount(true, 0) + "";
+            amount = sqlHelper.getAccountAmount(true, 0);
         } else {
             spnAccount.setSelection(adapterAccount.getPosition(mainActivity.currentAccount.getName()));
-            amount = sqlHelper.getAccountAmount(false, mainActivity.currentAccount.getId()) + "";
+            amount = sqlHelper.getAccountAmount(false, mainActivity.currentAccount.getId());
         }
-        txtHeaderAmount.setText("₫ " + amount);
+        txtHeaderAmount.setText("₫ " + Util.convertMoney(amount));
 
         spnAccount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -109,13 +109,13 @@ public class AccountFragment extends Fragment {
                     mainActivity.currentAccount = listAccount.get(i-1);
                 }
 
-                String amount = "";
+                int amount = 0;
                 if (mainActivity.isAllAccount) {
-                    amount = sqlHelper.getAccountAmount(true, 0) + "";
+                    amount = sqlHelper.getAccountAmount(true, 0);
                 } else {
-                    amount = sqlHelper.getAccountAmount(false, mainActivity.currentAccount.getId()) + "";
+                    amount = sqlHelper.getAccountAmount(false, mainActivity.currentAccount.getId());
                 }
-                txtHeaderAmount.setText("₫ " + amount);
+                txtHeaderAmount.setText("₫ " + Util.convertMoney(amount));
             }
 
             @Override

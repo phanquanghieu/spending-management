@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spendingmanagement.R;
 import com.example.spendingmanagement.model.Category;
+import com.example.spendingmanagement.model.Util;
 import com.example.spendingmanagement.ui.category.EditCategoryActivity;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class ListAccountAdapter extends RecyclerView.Adapter<ListAccountAdapter.
         holder.accountBgIc.setBackgroundResource(account.getColor());
         holder.accountBgIc.setImageResource(account.getIcon());
         holder.txtAccountName.setText(account.getName());
-        holder.txtAccountAmount.setText("₫ " + account.getAmount());
+        holder.txtAccountAmount.setText("₫ " + Util.convertMoney(account.getAmount()));
         if(account.getAmount() < 0){
             holder.txtAccountAmount.setTextColor(context.getResources().getColor(R.color.red_500));
         }else{

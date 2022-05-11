@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.spendingmanagement.R;
 import com.example.spendingmanagement.helper.ItemTouchHelperAdapter;
 import com.example.spendingmanagement.model.Transaction;
+import com.example.spendingmanagement.model.Util;
 import com.example.spendingmanagement.ui.transaction.TransactionFragment;
 
 import java.util.ArrayList;
@@ -50,7 +52,7 @@ implements ItemTouchHelperAdapter {
             holder.transactionBgIc.setBackgroundResource(transaction.getToCategory().getColor());
             holder.txtTop.setText(transaction.getToCategory().getName());
             holder.txtBottom.setText(transaction.getFromCategory().getName());
-            holder.txtAmount.setText("- ₫ " + transaction.getAmount());
+            holder.txtAmount.setText("- ₫ " + Util.convertMoney(transaction.getAmount()));
             holder.txtAmount.setTextColor(context.getResources().getColor(R.color.red_500));
         }
 
@@ -59,7 +61,7 @@ implements ItemTouchHelperAdapter {
             holder.transactionBgIc.setBackgroundResource(transaction.getFromCategory().getColor());
             holder.txtTop.setText(transaction.getFromCategory().getName());
             holder.txtBottom.setText(transaction.getToCategory().getName());
-            holder.txtAmount.setText("+ ₫ " + transaction.getAmount());
+            holder.txtAmount.setText("+ ₫ " + Util.convertMoney(transaction.getAmount()));
             holder.txtAmount.setTextColor(context.getResources().getColor(R.color.green_500));
         }
 
@@ -68,7 +70,7 @@ implements ItemTouchHelperAdapter {
             holder.transactionBgIc.setBackgroundResource(transaction.getToCategory().getColor());
             holder.txtTop.setText(transaction.getToCategory().getName());
             holder.txtBottom.setText(transaction.getFromCategory().getName());
-            holder.txtAmount.setText("₫ " + transaction.getAmount());
+            holder.txtAmount.setText("₫ " + Util.convertMoney(transaction.getAmount()));
         }
 
     }
@@ -88,6 +90,7 @@ implements ItemTouchHelperAdapter {
         }
         listTransaction.remove(position);
         notifyItemRemoved(position);
+        Toast.makeText(context.getApplicationContext(), "Delete successfully!!!", Toast.LENGTH_SHORT).show();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

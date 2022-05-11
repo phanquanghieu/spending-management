@@ -62,16 +62,17 @@ public class MainActivity extends AppCompatActivity {
 
         if(isAllAccount == null) return;
 
-        String accountName="", amount = "";
+        String accountName="";
+        int amount = 0;
         if (isAllAccount) {
             accountName = "All Account";
-            amount = sqlHelper.getAccountAmount(true, 0) + "";
+            amount = sqlHelper.getAccountAmount(true, 0);
         } else {
             accountName = "Filter - " + currentAccount.getName();
-            amount = sqlHelper.getAccountAmount(false, currentAccount.getId()) + "";
+            amount = sqlHelper.getAccountAmount(false, currentAccount.getId());
         }
         if(txtHeaderAccount != null) txtHeaderAccount.setText(accountName);
-        txtHeaderAmount.setText("₫ " + amount);
+        txtHeaderAmount.setText("₫ " + Util.convertMoney(amount));
 
 
         TextView txtDate = view.findViewById(R.id.txtDate);

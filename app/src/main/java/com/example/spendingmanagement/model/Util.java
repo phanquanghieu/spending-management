@@ -93,4 +93,24 @@ public class Util {
         }
         return listName;
     }
+
+    public static String convertMoney(int amount){
+        String s = "";
+        String a;
+
+        if(amount <0) {
+            s = "- ";
+            a = String.valueOf(-amount);
+        }
+        else a = String.valueOf(amount);
+        String r = "";
+        int i = a.length() - 1;
+        for (; i>=3 ; i-=3){
+            r = "," + a.charAt(i-2) + a.charAt(i-1) + a.charAt(i) + r;
+        }
+        for (int j = i; j>= 0; j--){
+            r = a.charAt(j) + r;
+        }
+        return s+r;
+    }
 }
