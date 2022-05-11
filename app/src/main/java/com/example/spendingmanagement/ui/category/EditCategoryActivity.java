@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -48,8 +49,8 @@ public class EditCategoryActivity extends AppCompatActivity {
         btnDeleteCategory = findViewById(R.id.btnDeleteCategory);
         txtTitle = findViewById(R.id.txtTitle);
         if(categoryType.equals("ACCOUNT")){
-            btnDeleteCategory.setText("Delete Acount");
-            txtTitle.setText("Edit Acount");
+            btnDeleteCategory.setText("Delete Account");
+            txtTitle.setText("Edit Account");
         }
         actCategoryColor.setText(Util.getNameColorByColorId(category.getColor()));
         actCategoryIcon.setText(Util.getNameIconByIconId(category.getIcon()));
@@ -60,12 +61,28 @@ public class EditCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(EditCategoryActivity.this);
-                alertDialog.setTitle("Thong bao");
-                alertDialog.setMessage("ban co muon xoa khong");
-//                sqlHelper.deleteCategory(category.getId());
+                alertDialog.setTitle("Warning");
+                alertDialog.setIcon(R.drawable.ic_warning);
+                alertDialog.setMessage("Do you want to delete?");
+                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        sqlHelper.deleteCategory(category.getId());
+                        Toast.makeText(EditCategoryActivity.this, "Delete Success", Toast.LENGTH_SHORT).show();
+                        finish();
+
+                    }
+                });
+
                 alertDialog.show();
-                Toast.makeText(EditCategoryActivity.this, "Delete Success", Toast.LENGTH_SHORT).show();
-                finish();
+
+
 
             }
         });
