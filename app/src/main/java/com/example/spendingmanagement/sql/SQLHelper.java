@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.example.spendingmanagement.model.Category;
 import com.example.spendingmanagement.model.Transaction;
+import com.example.spendingmanagement.model.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -228,7 +229,13 @@ public class SQLHelper extends SQLiteOpenHelper {
         }
         return listTransaction;
     }
-
+    public void deleteAllData(){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_CATEGORY, null, null);
+        db.delete(TABLE_TRANSACTION,null,null);
+        Category cardAccount = new Category("Card", "ACCOUNT", Util.colorId[0], Util.colorCodeId[0], Util.iconId[0]);
+        addCategory(cardAccount);
+    }
     public void deleteTransaction(int transactionId){
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_TRANSACTION, TRANSACTION_ID + " = " + transactionId, null);
